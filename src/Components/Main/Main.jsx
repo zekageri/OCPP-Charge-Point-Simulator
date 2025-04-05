@@ -238,6 +238,8 @@ const Main = () => {
         ws.send(JSON.stringify([ 3, id, { status: connId === 1 ? settingsState.simulation.connectorOneUnlock : settingsState.simulation.connectorTwoUnlock }]))
         break;
       case 'GetConfiguration':
+        const heartBeatIndex = settingsState.stationSettings.findIndex(x => x.key === 'HeartbeatInterval')
+        settingsState.stationSettings[heartBeatIndex].value = String(settingsState.stationSettings[heartBeatIndex].value)
         const returnConfiguration = { configurationKey: settingsState.stationSettings, unknownKey: [] }
         ws.send(JSON.stringify([ 3, id, returnConfiguration]))
         break;
